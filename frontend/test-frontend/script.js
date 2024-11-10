@@ -37,4 +37,6 @@ function showProfile() {
     // Display result
     document.getElementById("competition-result").textContent = resultText;
   }
+
+  
   
