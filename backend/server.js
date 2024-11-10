@@ -33,29 +33,37 @@ app.post('/request', (req, res) => {
     return res.status(400).json({ error: "userId is required" });
   }
 
-  // Add the request to the list
-  requests.push(userId);
-  console.log(`Request received from user: ${userId}`);
+  // Check if userId is already in the requests array
+  if (requests.includes(userId)) {
+    return res.json({ message: "Waiting for someone to join" });
+  }
+  else
+  {
+    // Add the request to the list
+        requests.push(userId);
+        console.log(`Request received from user: ${userId}`);
 
-  // Check if there are two requests to create a match
-  if (requests.length >= 2) {
+    // Check if there are two requests to create a match
+        if (requests.length >= 2) {
     // Create a match
-    const match = { user1: requests[0], user2: requests[1] };
-    console.log(`Match created between user ${match.user1} and user ${match.user2}`);
+        const match = { user1: requests[0], user2: requests[1] };
+        console.log(`Match created between user ${match.user1} and user ${match.user2}`);
 
     // Send the match response
-    res.json({ message: "Match created", match });
+        res.json({ message: "Match created", match });
 
     // Clear the requests list
-    requests = [];
-  } else {
+        requests = [];
+    } else {
     // If only one request, respond with waiting message
-    res.json({ message: "Waiting for another request to create a match" });
+        res.json({ message: "Waiting for another request to create a match" });
+    }
   }
+
 });
 
 // Start the server
-const PORT = process.env.PORT || 12972;
+const PORT = process.env.PORT || 12973;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
