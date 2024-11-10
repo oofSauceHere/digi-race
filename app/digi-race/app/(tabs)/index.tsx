@@ -8,7 +8,7 @@ import { ThemedView } from '@/components/ThemedView';
 export default function HomeScreen() {
   return (
     <ThemedView style={styles.titleContainer}>
-      <ThemedText>Home</ThemedText>
+      <ThemedText style={styles.text}>Digi-Race</ThemedText>
     </ThemedView>
   );
 }
@@ -19,5 +19,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  text: {
+    fontSize: 25,
   }
 });
