@@ -24,7 +24,7 @@ app.post('/compare', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 12970;
+const PORT = process.env.PORT || 12971;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
