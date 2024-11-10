@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running Competition App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- User Profile Section -->
+  <header>
+    <div class="profile-header">
+      <img src="user-pfp.png" alt="Profile Picture" class="profile-picture">
+      <div class="user-stats">
+        <p>Matches: <span id="match-count">10</span></p>
+        <p>Wins: <span id="win-count">5</span></p>
+        <p>Distance: <span id="distance-count">42 km</span></p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Leaderboard Section -->
+  <main>
+    <div class="leaderboard">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboard-list">
+        <li>User1 - 15 km</li>
+        <li>User2 - 12 km</li>
+        <li>User3 - 10 km</li>
+        <li>You - 8 km</li>
+      </ul>
+    </div>
+
+    <!-- Competition Section -->
+    <div class="competition">
+      <h2>Start a Competition</h2>
+      <form id="competition-form">
+        <div>
+          <label for="user1-distance">User 1 Distance (km):</label>
+          <input type="number" id="user1-distance" required>
+        </div>
+        <div>
+          <label for="user1-time">User 1 Time (min):</label>
+          <input type="number" id="user1-time" required>
+        </div>
+        <div>
+          <label for="user2-distance">User 2 Distance (km):</label>
+          <input type="number" id="user2-distance" required>
+        </div>
+        <div>
+          <label for="user2-time">User 2 Time (min):</label>
+          <input type="number" id="user2-time" required>
+        </div>
+        <button type="button" onclick="compareResults()">Compare Results</button>
+      </form>
+      <p id="competition-result"></p>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Buttons -->
+  <footer>
+    <button id="profile-btn" onclick="showProfile()">Profile</button>
+    <button id="match-btn" onclick="startMatch()">Match</button>
+    <button id="chat-btn" onclick="openChat()">Chat</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
