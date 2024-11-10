@@ -1,7 +1,9 @@
 const express = require('express');
+// const cors = require('cors')
 const app = express();
 
-app.use(express.json());
+// app.use(express.json());
+// app.use(cors());
 
 let requests = []; // Array to hold incoming requests
 let TopFive = []; // Array to hold Top 5 users with the highest distances
@@ -24,8 +26,18 @@ app.post('/compare', (req, res) => {
   // Compare the two values and return the greater one
   const greaterValue = UserOneDistance > UserTwoDistance ? UserOneDistance : UserTwoDistance;
 
+  let ID;
+  if (UserOneDistance > UserTwoDistance)
+  {
+    ID = UserOneID;
+  }
+  else
+  {
+    ID = UserTwoID;
+  }
+
   // Add the greater distance to the TopFive leaderboard
-  const userData = { userId: `User${UserOneID}`, distance: greaterValue };
+  const userData = { UserID: `User${ID}`, distance: greaterValue };
   TopFive.push(userData);
 
   // Sort and keep only the top 5 distances
@@ -39,19 +51,19 @@ app.post('/compare', (req, res) => {
 
 // Route to add a matchmaking request
 app.post('/request', (req, res) => {
-  const { userId } = req.body;
+  const { UserID } = req.body;
 
-  if (!userId) {
-    return res.status(400).json({ error: "userId is required" });
+  if (!UserID) {
+    return res.status(400).json({ error: "UserID is required" });
   }
 
   // Check if userId is already in the requests array
-  if (requests.includes(userId)) {
+  if (requests.includes(UserID)) {
     return res.json({ message: "Waiting for someone to join" });
   } else {
     // Add the request to the list
-    requests.push(userId);
-    console.log(`Request received from user: ${userId}`);
+    requests.push(UserID);
+    console.log(`Request received from user: ${UserID}`);
 
     // Check if there are two requests to create a match
     if (requests.length >= 2) {
@@ -61,6 +73,10 @@ app.post('/request', (req, res) => {
 
       // Send the match response
       res.json({ message: "Match created", match });
+
+      // im thinking matches are assigned unique ids which are sent back in json,
+      // and those ids can be queried via a diff route ("/match?") which will return
+      // start time via get and accept distance via post.
 
       // Clear the requests list
       requests = [];
@@ -90,7 +106,10 @@ app.get('/register', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 12979;
+const PORT = process.env.PORT || 12990;
+// server.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
