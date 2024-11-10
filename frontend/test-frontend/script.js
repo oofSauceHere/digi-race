@@ -37,4 +37,56 @@ function showProfile() {
     // Display result
     document.getElementById("competition-result").textContent = resultText;
   }
+
+  // Sample leaderboard data
+let leaderboard = [
+  { name: "User1", wins: 3, distance: 30 },
+  { name: "User2", wins: 2, distance: 25 },
+  { name: "User3", wins: 5, distance: 40 },
+  { name: "You", wins: 4, distance: 32 },
+];
+
+// Function to update leaderboard display
+function renderLeaderboard() {
+  const leaderboardList = document.getElementById("leaderboard-list");
+  leaderboardList.innerHTML = ""; // Clear existing items
+
+  // Sort leaderboard by wins (highest first)
+  leaderboard.sort((a, b) => b.wins - a.wins);
+
+  // Render each entry
+  leaderboard.forEach(user => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${user.name} - Wins: ${user.wins}, Distance: ${user.distance} km`;
+    leaderboardList.appendChild(listItem);
+  });
+}
+
+// Function to update leaderboard when a user wins
+function updateWin(winnerName) {
+  const user = leaderboard.find(user => user.name === winnerName);
+  if (user) {
+    user.wins += 1;
+    user.distance += 10; // Example distance increment, adjust as needed
+  } else {
+    leaderboard.push({ name: winnerName, wins: 1, distance: 10 });
+  }
+
+  // Save updated leaderboard to localStorage
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+  renderLeaderboard();
+}
+
+// Load leaderboard from localStorage on page load
+function loadLeaderboard() {
+  const savedData = localStorage.getItem("leaderboard");
+  if (savedData) {
+    leaderboard = JSON.parse(savedData);
+  }
+  renderLeaderboard();
+}
+
+// Call this on page load
+loadLeaderboard();
+
   
