@@ -30,6 +30,7 @@ app.post('/compare', (req, res) => {
   // Compare the two values and return the greater one
   const greaterValue = UserOneDistance > UserTwoDistance ? UserOneDistance : UserTwoDistance;
 
+<<<<<<< HEAD
   let ID;
   if (UserOneDistance > UserTwoDistance)
   {
@@ -42,6 +43,10 @@ app.post('/compare', (req, res) => {
 
   // Add the greater distance to the TopFive leaderboard
   const userData = { UserID: `User${ID}`, distance: greaterValue };
+=======
+  // Add the greater distance to the TopFive leaderboard
+  const userData = { userId: `User${UserOneID}`, distance: greaterValue };
+>>>>>>> 747142ae7c0c6f77d0ce6b10070fb082fd064572
   TopFive.push(userData);
 
   // Sort and keep only the top 5 distances
@@ -170,10 +175,14 @@ app.post('/register', (req, res) => {
 });
 
 // Start the server
+<<<<<<< HEAD
 const PORT = process.env.PORT || 12990;
 // server.listen(PORT, () => {
 //   console.log(`Server is running on http://localhost:${PORT}`);
 // });
+=======
+const PORT = process.env.PORT || 12979;
+>>>>>>> 747142ae7c0c6f77d0ce6b10070fb082fd064572
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
